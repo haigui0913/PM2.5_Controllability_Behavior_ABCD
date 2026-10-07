@@ -1,0 +1,5 @@
+source("R/config.R")
+source("R/helpers_smcca.R")
+xlist <- readRDS(file.path(RESULT_DIR,"xlist_modal.rds")); tuning <- readRDS(file.path(RESULT_DIR,"modal_penalty_tuning.rds")); cv <- readRDS(file.path(RESULT_DIR,"modal_repeated_cv.rds"))
+perm <- run_cv_permutation(xlist,tuning$bestpenalties,tuning$ws.init,cv$repeat_means,N_COMPONENTS,N_PERM,N_CV_FOLDS,SEED)
+saveRDS(perm,file.path(RESULT_DIR,"modal_cv_permutation.rds")); write.csv(perm$summary,file.path(RESULT_DIR,"modal_cv_permutation_summary.csv"),row.names=FALSE)
